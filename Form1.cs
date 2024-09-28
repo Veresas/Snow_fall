@@ -49,11 +49,12 @@ namespace Snow_fall
         }
         private void TimerTick(object sender, EventArgs e)
         {
-            
-            
+            var newImg = new Bitmap(this.Width, this.Height);
+            var gr = Graphics.FromImage(newImg);
+            gr.DrawImage(backImage, 0, 0, this.Width,this.Height);
             for (int i = 0; i < lastIndex; i++)
             {
-                g.DrawImage(snowfleaks[i].image, new Rectangle(snowfleaks[i].posX, snowfleaks[i].posY, snowfleaks[i].size, snowfleaks[i].size));
+                gr.DrawImage(snowfleaks[i].image, new Rectangle(snowfleaks[i].posX, snowfleaks[i].posY, snowfleaks[i].size, snowfleaks[i].size));
                 snowfleaks[i].move();
             }
             
@@ -61,7 +62,7 @@ namespace Snow_fall
             {
                 CreatSnowfleaks(10);
             }
-
+            g.DrawImage(newImg, 0, 0);
         }
 
         private void CreatSnowfleaks(int num)
