@@ -8,24 +8,28 @@ using System.Windows.Forms;
 
 namespace Snow_fall
 {
-    internal class Snowfleak 
+    internal class Snowfleak
     {
-        public int posX { get; private set; }
-        public int posY { get; private set; }
-        public int size { get; private set; }
-        public Image image = Properties.Resources.snow2;
+        private Random rand = new Random();
+        public int PosX { get; private set; }
+        public int PosY { get; private set; }
+        public int Size { get; private set; }
+        public Image image = Properties.Resources.snow;
         public Snowfleak(int x, int y, int size)
         {
-            posX = x;
-            posY = y;
-            this.size = size;
+            PosX = x;
+            PosY = y;
+            Size = size;
         }
 
-        public void move()
+        public void move(int h)
         {
-            posY++;
+            PosY++;
+            if (PosY == h)
+            {
+                PosY = -100;
+                PosX = rand.Next(1, 600);
+            }
         }
-
-        
     }
 }
