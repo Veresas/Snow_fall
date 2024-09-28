@@ -16,36 +16,52 @@ namespace Snow_fall
         private Snowfleak[] snowfleaks = new Snowfleak[maxSnowfleaks];
         private Timer timer;
         private Random rand;
+        private Graphics g;
+        private Image backImage;
         private int lastIndex = 0;
         private int nextWayv = 0;
         public Form1()
         {
             InitializeComponent();
-            this.BackgroundImageLayout = ImageLayout.Stretch;
-            this.BackgroundImage = Properties.Resources.backgraund;
-            
-            this.rand = new Random();
-            CreatSnowfleaks(40);
+            backImage = ResizeImage(Properties.Resources.backgraund, this.Width, this.Height);
 
+            g = this.CreateGraphics();
+            this.rand = new Random();
+            CreatSnowfleaks(10);
+
+            
             this.timer = new Timer();
             this.timer.Interval = 30; 
             this.timer.Tick += new EventHandler(this.TimerTick);
             this.timer.Start();
+
+            
         }
 
+        private Image ResizeImage(Image image, int width, int height)
+        {
+            Bitmap bmp = new Bitmap(width, height);
+            using (Graphics graphics = Graphics.FromImage(bmp))
+            {
+                graphics.DrawImage(image, 0, 0, width, height);
+            }
+            return bmp;
+        }
         private void TimerTick(object sender, EventArgs e)
         {
-            for(int i = 0; i < lastIndex; i++)
-            {
-                snowfleaks[i].move(snowfleaks[i].Location.X, snowfleaks[i].Location.Y);
-            }
-
-            /*nextWayv++;
             
-            if(nextWayv%100 ==0)
+            
+            for (int i = 0; i < lastIndex; i++)
+            {
+                g.DrawImage(snowfleaks[i].image, new Rectangle(snowfleaks[i].posX, snowfleaks[i].posY, snowfleaks[i].size, snowfleaks[i].size));
+                snowfleaks[i].move();
+            }
+            
+            if (nextWayv % 100 == 0)
             {
                 CreatSnowfleaks(10);
-            }*/
+            }
+
         }
 
         private void CreatSnowfleaks(int num)
@@ -58,10 +74,9 @@ namespace Snow_fall
             for (int i = 0; i < num; i++)
             {
                 posX = rand.Next(1, this.ClientRectangle.Width);
-                posY = rand.Next(-500, -200);
+                posY = rand.Next(-500, -100);
                 size = rand.Next(30, 150);
                 snowfleaks[lastIndex] = new Snowfleak(posX,posY, size);
-                this.Controls.Add(snowfleaks[lastIndex]);
                 lastIndex++;
             }
 
