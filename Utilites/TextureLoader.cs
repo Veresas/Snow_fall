@@ -10,6 +10,12 @@ namespace Snow_fall
     {
         const bool UsingPipeline = false;
 
+        /// <summary>
+        /// Создание текстуры из изображения
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="content"></param>
+        /// <returns>Текстура</returns>
         public static Texture2D Load(string filePath, ContentManager content)
         {
             Texture2D image = content.Load<Texture2D>(filePath);

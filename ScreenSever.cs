@@ -23,6 +23,9 @@ namespace Snow_fall
         private int timeCounter = 0;
         private readonly Random random = new Random();
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ScreenSever()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -47,6 +50,7 @@ namespace Snow_fall
             background = TextureLoader.Load("backgraund", Content);
             snowFall.CreatSnowfleakList(Constants.WindowWidth, Constants.WindowHeight, snow);
         }
+
         protected override void Update(GameTime gameTime)
         {
 
