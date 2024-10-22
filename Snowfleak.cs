@@ -1,35 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Snow_fall
 {
     internal class Snowfleak
     {
         private Random rand = new Random();
-        public int PosX { get; private set; }
-        public int PosY { get; private set; }
+        public Texture2D Texture { get; private set; }
+        public Point Pos { get; set; }
         public int Size { get; private set; }
-        public Image image = Properties.Resources.snow;
-        public Snowfleak(int x, int y, int size)
-        {
-            PosX = x;
-            PosY = y;
-            Size = size;
-        }
 
-        public void move(int h)
+        public Snowfleak(Texture2D texture, Point pos, int size)
         {
-            PosY++;
-            if (PosY == h)
-            {
-                PosY = -100;
-                PosX = rand.Next(1, 600);
-            }
+            Texture = texture;
+            Pos = pos;
+            Size = size;
         }
     }
 }

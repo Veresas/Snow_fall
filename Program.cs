@@ -14,9 +14,10 @@ namespace Snow_fall
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SnowfallForm());
+            using (var game = new ScreenSever())
+            {
+                game.Run();
+            }
         }
     }
 }
