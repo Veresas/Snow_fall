@@ -14,7 +14,6 @@ namespace Snow_fall
         private Texture2D background;
         private SnowFall snowFall;
 
-        private int timeCounter = 0;
         private readonly Random random = new Random();
 
         /// <summary>
@@ -48,33 +47,24 @@ namespace Snow_fall
         protected override void Update(GameTime gameTime)
         {
 
-            if (!Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                timeCounter++;
+                Exit();
             }
-            else
-            {
-                timeCounter = 0;
-            }
-            if (timeCounter > 100)
-            {
-                snowFall.Move();
-            }
+            snowFall.Move();
             base.Update(gameTime);
         }
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            if (timeCounter > 100)
+
+            spriteBatch.Begin();
+            spriteBatch.Draw(background, new Rectangle(0, 0, Constants.WindowWidth, Constants.WindowHeight), Color.White);
+            foreach (var s in snowFall.snowfleaks)
             {
-                spriteBatch.Begin();
-                spriteBatch.Draw(background, new Rectangle(0, 0, Constants.WindowWidth, Constants.WindowHeight), Color.White);
-                foreach (var s in snowFall.snowfleaks)
-                {
-                    spriteBatch.Draw(s.Texture, new Rectangle(s.Pos.X, s.Pos.Y, s.Size, s.Size), new Rectangle(0, 0, snow.Width, snow.Height), Color.White);
-                }
-                spriteBatch.End();
+                spriteBatch.Draw(s.Texture, new Rectangle(s.Pos.X, s.Pos.Y, s.Size, s.Size), new Rectangle(0, 0, snow.Width, snow.Height), Color.White);
             }
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
